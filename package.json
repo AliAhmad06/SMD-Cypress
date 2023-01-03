@@ -1,5 +1,12 @@
 {
+      "scripts": {
+      "cy:run": "npx cypress open"
+    },
+  
   "dependencies": {
     "cypress": "^11.2.0"
+  },
+  "devDependencies": {
+    "@cypress/xpath": "^2.0.3"
   }
 }

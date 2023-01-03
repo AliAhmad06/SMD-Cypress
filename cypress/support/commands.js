@@ -1,3 +1,5 @@
+require('@cypress/xpath')
+import { AssertionCheck, NavigateTo} from "../support/page_objects/navigation_page"
 
 // ***********************************************
 // This example commands.js shows you how to
