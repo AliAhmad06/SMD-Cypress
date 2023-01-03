@@ -24,3 +24,13 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+// Cypress.Commands.add('Credentials',()=>{
+//     const UserCredentials = {
+//         "user":
+//         {
+//             "Email": Cypress.env("Email"),
+//             "Password": Cypress.env("Password")
+//         }
+//     }
+// })

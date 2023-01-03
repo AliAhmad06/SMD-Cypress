@@ -1,5 +1,13 @@
 import { AssertionCheck, NavigateTo} from "../support/page_objects/navigation_page"
 
+const credentials = 
+{
+  'First Name': 'Ali',
+  'Last Name': 'Ahmad',
+  'Email Address': Cypress.env("Email"),
+  'Password': Cypress.env("Password"),
+}
+
 describe("Log In Functionality", () => {
 //   it("Log In Test", () => {
 //     cy.visit("/");
@@ -40,9 +48,11 @@ describe("Log In Functionality", () => {
 
 })
 
+const enn = Cypress.env()
+
 describe('Log Out Functionality',()=>{
-  it('Log Out Pass',()=>{
-    NavigateTo.login('muhammad.ali+57@ceative.co.uk','123asd@ASD')
+  it.only('Log Out Pass',()=>{
+    NavigateTo.login(credentials["Email Address"],credentials["Password"])
     AssertionCheck.assertion_with_url('/home')
     NavigateTo.logout()
     cy.wait(2000)
