@@ -1,4 +1,4 @@
-
+import { AssertionCheck, Assertions, NavigateTo} from "../support/page_objects/navigation_page"
 
 const credentials = 
 {
@@ -48,10 +48,9 @@ describe("Log In Functionality", () => {
 
 })
 
-const enn = Cypress.env()
 
 describe('Log Out Functionality',()=>{
-  it.only('Log Out Pass',()=>{
+  it('Log Out Pass',()=>{
     NavigateTo.login(credentials["Email Address"],credentials["Password"])
     AssertionCheck.assertion_with_url('/home')
     NavigateTo.logout()
@@ -80,3 +79,46 @@ describe('Personal Details',()=>{
 //      })
 //   })
 // })
+
+describe.only('DOB',()=>{
+  it('Check DOB',()=>{
+    //NavigateTo.login(credentials["Email Address"],credentials["Password"])
+    cy.wait(2000)
+    NavigateTo.SideNav('Account settings')
+    cy.wait(2000)
+    //cy.get('[class="MuiButtonBase-root MuiIconButton-root MuiIconButton-edgeEnd MuiIconButton-sizeMedium css-slyssw"]')
+      //.click().type('4')
+    //cy.wait(2000)
+    cy.contains('div','Date of Birth').find('button').then(input=>{
+      cy.wrap(input).click()
+      //cy.get('[class="MuiButtonBase-root MuiPickersDay-root MuiPickersDay-dayWithMargin css-ub1r1"]').contains('22').click()
+      cy.get('.MuiPickersDay-root').contains('22').click()
+      cy.wrap(input).invoke('val').should('include','01/22/1938')
+      //cy.contains('22').click()
+    })
+  })
+})
+
+describe('Kitchen Details',()=>{
+  it('Kictchen Details',()=>{
+    NavigateTo.login(credentials["Email Address"],credentials["Password"])
+    NavigateTo.SideNav('Account settings')
+    NavigateTo.HeaderPD('Kitchen’s Detail')
+    AssertionCheck.assertion_with_area_selected('Kitchen’s Detail')
+
+  })
+
+})
+
+  describe('UTR Number Check',()=>{
+    it('UTR Number',()=>{
+      NavigateTo.login(credentials["Email Address"],credentials["Password"])
+      NavigateTo.SideNav('Account settings')
+      NavigateTo.HeaderPD('License')
+      AssertionCheck.assertion_with_area_selected('License')
+      cy.xpath('//input[@id="utrNumberValue"]').should('have.value', '34568 12397')
+      cy.xpath('//input[@id="utrNumberValue"]').should('have.prop', 'value').should('match', /^\d{5} \d{5}$/)
+      cy.xpath('//input[@id="utrNumberValue"]').invoke('val').should('match', /^\d{5} \d{5}$/)
+  
+    })
+})

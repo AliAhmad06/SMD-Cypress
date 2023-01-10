@@ -1,6 +1,7 @@
 {
       "scripts": {
-      "cy:run": "npx cypress open"
+      "cy:open": "npx cypress open",
+      "cy:run": "npx cypress run --spec cypress/e2e/SMD_smoke_testing.cy.js"
     },
   
   "dependencies": {
