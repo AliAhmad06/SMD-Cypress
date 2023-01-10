@@ -1,15 +1,16 @@
 require('@cypress/xpath')
 
-beforeEach(()=>{
-    cy.session('session',()=>{
-     cy.visit('/')
-        cy.wait(1000)
-        cy.get('input[type="email"].MuiOutlinedInput-input').type(Cypress.env("Email"))
-        cy.get('input[id="password"].MuiInputBase-inputAdornedEnd').type(Cypress.env("Password"))
-        cy.get('.MuiButtonBase-root').click()
-        cy.wait(500)
-    })
-})
+// beforeEach(()=>{
+//     //cy.clearAllSessionStorage()
+//     cy.session('session',()=>{
+//      cy.visit('/')
+//         cy.wait(2000)
+//         cy.get('input[type="email"].MuiOutlinedInput-input').type(Cypress.env("Email"))
+//         cy.get('input[id="password"].MuiInputBase-inputAdornedEnd').type(Cypress.env("Password"))
+//         cy.get('.MuiButtonBase-root').click()
+//         cy.wait(2000)
+//     })
+// })
 
 //info: Assertions
 export class Assertions{
@@ -40,17 +41,21 @@ export class NavigationPage{
     }
 
     logout(){
+        
         cy.get('[class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-vubbuv"][data-testid="ExpandMoreIcon"]').click()
         cy.get('div[class="flex dropdown-menu-row align-center cursor-pointer"]').last().click()
+        //cy.wait(2000)
     }
 
     SideNav(name){
         cy.get('div[class="sidebar-menu-top"]').parent('div').contains(name).click()
+        cy.wait(2000)
         //cy.log(cy.get('div[class="sidebar-menu-top"]').parent('div'))
     }
 
     HeaderPD(name){
         cy.xpath('//div[@class="MuiGrid-root css-1w38p8m"]').contains(name).click()
+        cy.wait(2000)
     }
 }
 

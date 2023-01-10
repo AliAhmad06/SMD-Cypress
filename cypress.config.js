@@ -5,7 +5,8 @@ const { defineConfig } = require("cypress");
 module.exports = defineConfig({
   viewportHeight: 1080,
   viewportWidth:1440,
-  defaultCommandTimeout: 3000,
+  waitForAnimations:true,
+  defaultCommandTimeout: 10000,
   env: {
     Email: 'muhammad.ali+57@ceative.co.uk',
     Password: '123asd@ASD'

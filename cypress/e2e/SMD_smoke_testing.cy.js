@@ -38,11 +38,13 @@ describe("Log In Functionality", () => {
 
   it('Log In Pass',()=>{
     NavigateTo.login('muhammad.ali+57@ceative.co.uk','123asd@ASD')
+    //cy.visit('/')
     AssertionCheck.assertion_with_url('/home')
   })
 
   it('Log In Fail',()=>{
     NavigateTo.login('muhammad.ali+57@ceative.co.uk','123asd@ASDa')
+    //cy.visit('/')
     cy.get('[class="error-color error-text font-family-roboto secondary-title font-weight-400"]').should('contain','Incorrect username or password.')
   })
 
@@ -52,9 +54,9 @@ describe("Log In Functionality", () => {
 describe('Log Out Functionality',()=>{
   it('Log Out Pass',()=>{
     NavigateTo.login(credentials["Email Address"],credentials["Password"])
+    //cy.visit('/')
     AssertionCheck.assertion_with_url('/home')
     NavigateTo.logout()
-    cy.wait(2000)
     AssertionCheck.assertion_with_url('/authentication/signin')
   })
 })
@@ -62,6 +64,7 @@ describe('Log Out Functionality',()=>{
 describe('Personal Details',()=>{
   it('Checking Personal Details',()=>{
     NavigateTo.login('muhammad.ali+57@ceative.co.uk','123asd@ASD')
+    //cy.visit('/')
     NavigateTo.SideNav('Account settings')
     cy.get('[class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-12 MuiGrid-grid-lg-12 bg-card-white css-15j76c0"]').then(Ass=>{
       const firstname = Ass.find('div').text()
@@ -82,19 +85,31 @@ describe('Personal Details',()=>{
 
 describe.only('DOB',()=>{
   it('Check DOB',()=>{
-    //NavigateTo.login(credentials["Email Address"],credentials["Password"])
-    cy.wait(2000)
+    NavigateTo.login(credentials["Email Address"],credentials["Password"])
+    //cy.wait(2000)
+    //cy.visit('/')
     NavigateTo.SideNav('Account settings')
     cy.wait(2000)
     //cy.get('[class="MuiButtonBase-root MuiIconButton-root MuiIconButton-edgeEnd MuiIconButton-sizeMedium css-slyssw"]')
       //.click().type('4')
     //cy.wait(2000)
-    cy.contains('div','Date of Birth').find('button').then(input=>{
-      cy.wrap(input).click()
-      //cy.get('[class="MuiButtonBase-root MuiPickersDay-root MuiPickersDay-dayWithMargin css-ub1r1"]').contains('22').click()
-      cy.get('.MuiPickersDay-root').contains('22').click()
-      cy.wrap(input).invoke('val').should('include','01/22/1938')
-      //cy.contains('22').click()
+    // cy.contains('div','Date of Birth').find('button').then(input=>{
+    //   cy.log(input)
+    //   cy.wrap(input).click()
+    //   //cy.get('[class="MuiButtonBase-root MuiPickersDay-root MuiPickersDay-dayWithMargin css-ub1r1"]').contains('22').click()
+    //   cy.get('.MuiPickersDay-root').contains('22').click()
+    //   cy.wrap(input).should('have.value','01/22/1938')
+    //   //cy.contains('22').click()
+    // })
+    // cy.contains('span','Date of Birth').then(input=>{
+    //   cy.log(input)
+    //   cy.wrap(input).find('button')
+    // })
+    cy.get('[class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-12 MuiGrid-grid-lg-6 margin-bottom-1 css-tletg0"]').contains('Date of Birth').parent('div').then(input=>{
+      //input.find('button').click()
+      cy.wrap(input).find('button').click()
+      cy.get('[class="MuiButtonBase-root MuiPickersDay-root MuiPickersDay-dayWithMargin css-ub1r1"]').contains('22').click()
+      cy.wrap(input).invoke('have.value','01/01/1938').should('contain','01/01/1938')
     })
   })
 })
@@ -102,6 +117,7 @@ describe.only('DOB',()=>{
 describe('Kitchen Details',()=>{
   it('Kictchen Details',()=>{
     NavigateTo.login(credentials["Email Address"],credentials["Password"])
+    //cy.visit('/')
     NavigateTo.SideNav('Account settings')
     NavigateTo.HeaderPD('Kitchen’s Detail')
     AssertionCheck.assertion_with_area_selected('Kitchen’s Detail')
@@ -113,12 +129,12 @@ describe('Kitchen Details',()=>{
   describe('UTR Number Check',()=>{
     it('UTR Number',()=>{
       NavigateTo.login(credentials["Email Address"],credentials["Password"])
+      //cy.visit('/')
       NavigateTo.SideNav('Account settings')
       NavigateTo.HeaderPD('License')
       AssertionCheck.assertion_with_area_selected('License')
       cy.xpath('//input[@id="utrNumberValue"]').should('have.value', '34568 12397')
       cy.xpath('//input[@id="utrNumberValue"]').should('have.prop', 'value').should('match', /^\d{5} \d{5}$/)
       cy.xpath('//input[@id="utrNumberValue"]').invoke('val').should('match', /^\d{5} \d{5}$/)
-  
     })
 })
