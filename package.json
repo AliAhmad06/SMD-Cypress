@@ -1,12 +1,10 @@
 {
       "scripts": {
-      "cy:run": "npx cypress open"
-    },
-  
-  "dependencies": {
-    "cypress": "^11.2.0"
-  },
-  "devDependencies": {
-    "@cypress/xpath": "^2.0.3"
-  }
+            "cy:open": "npx cypress open",
+            "cy:run": "npx cypress run --spec cypress/e2e/SMD_smoke_testing.cy.js"
+      },
+      "devDependencies": {
+            "@cypress/xpath": "^2.0.3",
+            "cypress": "^12.3.0"
+      }
 }
