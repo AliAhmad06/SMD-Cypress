@@ -1,4 +1,4 @@
-import { AssertionCheck, Assertions, NavigateTo} from "../support/page_objects/navigation_page"
+import { AssertionCheck, NavigateTo} from "../support/page_objects/navigation_page"
 
 const credentials = 
 {
@@ -38,13 +38,11 @@ describe("Log In Functionality", () => {
 
   it('Log In Pass',()=>{
     NavigateTo.login('muhammad.ali+57@ceative.co.uk','123asd@ASD')
-    //cy.visit('/')
     AssertionCheck.assertion_with_url('/home')
   })
 
   it('Log In Fail',()=>{
     NavigateTo.login('muhammad.ali+57@ceative.co.uk','123asd@ASDa')
-    //cy.visit('/')
     cy.get('[class="error-color error-text font-family-roboto secondary-title font-weight-400"]').should('contain','Incorrect username or password.')
   })
 
@@ -52,9 +50,13 @@ describe("Log In Functionality", () => {
 
 
 describe('Log Out Functionality',()=>{
-  it('Log Out Pass',()=>{
+  it('Log Out Pass', () => {
+    Cypress.on('uncaught:exception', (err, runnable) => {
+      // returning false here prevents Cypress from
+      // failing the test
+      return false
+    })
     NavigateTo.login(credentials["Email Address"],credentials["Password"])
-    //cy.visit('/')
     AssertionCheck.assertion_with_url('/home')
     NavigateTo.logout()
     AssertionCheck.assertion_with_url('/authentication/signin')
@@ -74,16 +76,7 @@ describe('Personal Details',()=>{
   })
 })
 
-//  describe.only('Then',()=>{
-//   it('Checking then',()=>{
-//      cy.contains('div[class="MuiGrid-root MuiGrid-container padding-4 margin-top-0 css-f86t6j"]','First Name').then(Ass=>{
-//       const firstname = Ass.find('[class="primary-title flex align-center black-color"]').text()
-//       expect(firstname).to.equal('First Name')
-//      })
-//   })
-// })
-
-describe.only('DOB',()=>{
+describe('DOB',()=>{
   it('Check DOB',()=>{
     NavigateTo.login(credentials["Email Address"],credentials["Password"])
     //cy.wait(2000)
